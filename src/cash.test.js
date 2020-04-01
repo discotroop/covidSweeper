@@ -13,7 +13,19 @@ const sampleCID = [
     ["ONE HUNDRED", 100]
   ]
 
+  const simplerCID = [
+    ["PENNY", 0.01],
+    ["NICKEL", 0.05],
+    ["DIME", 0.10],
+    ["QUARTER", 0.25],
+    ["ONE", 1],
+    ["FIVE", 5],
+    ["TEN", 10],
+    ["TWENTY", 20],
+    ["ONE HUNDRED", 100]
+  ]
 
+//
 // purchase price => price
 // payment => cash
 // cid => 2d array of available currency.
@@ -21,15 +33,9 @@ const sampleCID = [
 // return {status: "INSUFFICIENT_FUNDS", change: []}
 // if cash-in-drawer is less than change due | cannot return exact change.
 
-// return {status: "CLOSED, change: [...]"}
-// with cash-in-drawer as the value for the key change it it is
-// equal to change due. 
-
 // otherwise return {status: "OPEN", change: [...]}
 // with the change due in coins and bills, sorted
 // highest to lower order as value of change key.
-
-// SAMPLE cid array 
   
 
 test('total calculates total cid.', ()=> {
@@ -53,8 +59,7 @@ test('returns change: [] if change due > cid.', ()=> {
 
 // exact change cannot be provided
 test.only('returns status: "INSUFFICIENT_FUNDS" if exact change cannot be provided.', ()=> {
-    let sample = checkCashRegister(1, 5, sampleCID)
-     expect(sample.status).toBe("INSUFFICIENT_FUNDS");
+    console.log("wee")
 })
 test('returns change: [] if exact change cannot be provided.', ()=> {
     let sample = checkCashRegister(0.56, 1, sampleCID)

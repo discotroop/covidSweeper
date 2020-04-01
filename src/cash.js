@@ -59,14 +59,16 @@ function checkCashRegister(price, cash, cid) {
     } else if (currentChangeDue === currentCID) {
         currentStatus = "CLOSED";
         currentChange = cid;
+    } else {
+        calculateChangeFromDrawer();
     }
-    function adjustDrawer(unit, value) {
+    function adjustDrawer(unitName, unitTotalCash, unitValue, changeDue) {
         let total = 0;
-        while (value > unit[1])
-            total += unit[2];
-            unit[1] -= unit[2];
-        let result = [unit[0], total]
-        console.log(result)
+        while (changeDue > unitTotalCash && unitTotalCash > 0)
+            total += unitValue;
+            unitTotalCash -= unitValue;
+            changeDue -= unitValue;
+        let result = [unitName, total]
         return result
     }
 
@@ -78,14 +80,11 @@ function checkCashRegister(price, cash, cid) {
             let unitTotalCash = reversedCID[i][1];
             let unitValue = reversedCID[i][2];
             if (currentChangeDue > unitValue && unitTotalCash > 0) {
-                changeFromDrawer.push(adjustDrawer(unit, currentChangeDue))
-                currentChangeDue -= reversedCID[i][1];
+                changeFromDrawer.push(adjustDrawer(unitName, unitTotalCash, unitValue, currentChangeDue))
             }
         }
         console.log(changeFromDrawer);
     }
-
-    calculateChangeFromDrawer();
 
     return {
       total: calculateTotalCID(cid),
