@@ -83,6 +83,14 @@ function checkCashRegister(price, cash, cid) {
         }
     }
     /// this aint right
+
+    // sample
+    // 1 penny, 1 quarter, 1 dollar => 126
+    // maybe say 100 > 27 - 100
+    // 25 < 27 => keep it
+    // 1 < 27 => keep it 
+    // 26 < 27 => insufficient funds
+    // 126 - 27 => 99
     function calculateChangeFromDrawer () {
         let changeFromDrawer = [];
         let localChange = currentChangeDue;
