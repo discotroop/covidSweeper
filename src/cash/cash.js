@@ -63,32 +63,45 @@ function checkCashRegister(price, cash, cid) {
         calculateChangeFromDrawer();
     }
     function adjustDrawer(unitName, unitTotalCash, unitValue, changeDue) {
-        let total = 0;
-        while (changeDue > unitTotalCash && unitTotalCash > 0)
+        let total = 0.00;
+        let localChange = changeDue;
+
+        while (localChange >= unitValue && unitTotalCash > 0.000 && localChange > 0.00) {
             total += unitValue;
             unitTotalCash -= unitValue;
-            changeDue -= unitValue;
+            localChange -= unitValue;
+            localChange = localChange.toFixed(2);
+            if (total > 0) {
+                total = total.toFixed(2); 
+            }
+        }
         let result = [unitName, total]
-        return result
+        if (total > 0) {
+            return result;
+        } else {
+            return;
+        }
     }
-
+    /// this aint right
     function calculateChangeFromDrawer () {
         let changeFromDrawer = [];
+        let localChange = currentChangeDue;
         for (let i=0; i < reversedCID.length; i++) {
-            let unit = reversedCID[i];
             let unitName = reversedCID[i][0];
             let unitTotalCash = reversedCID[i][1];
             let unitValue = reversedCID[i][2];
-            if (currentChangeDue > unitValue && unitTotalCash > 0) {
-                changeFromDrawer.push(adjustDrawer(unitName, unitTotalCash, unitValue, currentChangeDue))
+            let newUnit = adjustDrawer(unitName, unitTotalCash, unitValue, localChange);
+            if (newUnit !== undefined) {
+                changeFromDrawer.push(newUnit);
             }
         }
         console.log(changeFromDrawer);
+        return changeFromDrawer;
     }
 
     return {
       total: calculateTotalCID(cid),
-      changeDue: calculateChangeDue(price, cash),
+      changeDue: calculateChangeDue(price, cash).toFixed(2),
       status: currentStatus,
       change: currentChange,
   }

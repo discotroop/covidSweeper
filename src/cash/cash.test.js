@@ -59,7 +59,8 @@ test('returns change: [] if change due > cid.', ()=> {
 
 // exact change cannot be provided
 test.only('returns status: "INSUFFICIENT_FUNDS" if exact change cannot be provided.', ()=> {
-    console.log("wee")
+    let sample = checkCashRegister(1, 2, simplerCID);
+    console.log(sample)
 })
 test('returns change: [] if exact change cannot be provided.', ()=> {
     let sample = checkCashRegister(0.56, 1, sampleCID)
